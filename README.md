@@ -8,7 +8,7 @@ Jonathan Lewis | Mike Byrd | Jonathan Heasley | Logan Conley
 
 Do you collect or have Pokemon cards? Do you know what cards you have, what their details are, and how much they are worth? PokéCollect features:  
 
-- Discover Pokemon card by their name, card number, or type
+- Discover Pokemon cards by their name, card number, or type
 - Find interesting facts about each card including their movesets
 - Build a collection of cards and discover your collection's value
 
@@ -141,16 +141,5 @@ Enhance your Pokemon collecting experience using your Web-browser or mobile devi
 **Then** 
 
 ## Class Diagram
-
-
-
-### Class Diagram Description
-
-
-
-## Scrum Roles  
-
-
-## Weekly Meeting
-
+![PokeCollect Class Diagram](https://github.com/JPL-Codes/PokeCollect/assets/122935645/7a5c9689-85ba-4e7a-9604-837091610dc9)
 
