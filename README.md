@@ -171,3 +171,141 @@ The user should be presented with a form to update card information, such as nam
 ## Class Diagram
 ![PokeCollect Class Diagram](https://github.com/JPL-Codes/PokeCollect/assets/122935645/7a5c9689-85ba-4e7a-9604-837091610dc9)
 
+## JSON Schema
+{
+    "data": [
+        {
+            "id": "dp3-3",
+            "name": "Charizard",
+            "supertype": "Pokémon",
+            "subtypes": [
+                "Stage 2"
+            ],
+            "level": "55",
+            "hp": "130",
+            "types": [
+                "Fire"
+            ],
+            "evolvesFrom": "Charmeleon",
+            "abilities": [
+                {
+                    "name": "Fury Blaze",
+                    "text": "If your opponent has 3 or less Prize cards left, each of Charizard's attacks does 50 more damage to the Active Pokémon (before applying Weakness and Resistance).",
+                    "type": "Poké-Body"
+                }
+            ],
+            "attacks": [
+                {
+                    "name": "Blast Burn",
+                    "cost": [
+                        "Fire",
+                        "Fire",
+                        "Fire",
+                        "Colorless"
+                    ],
+                    "convertedEnergyCost": 4,
+                    "damage": "120",
+                    "text": "Flip a coin. If heads, discard 2 Energy cards attached to Charizard. If tails, discard 4 Energy cards attached to Charizard. (If you can't, this attack does nothing.)"
+                }
+            ],
+            "weaknesses": [
+                {
+                    "type": "Water",
+                    "value": "+40"
+                }
+            ],
+            "resistances": [
+                {
+                    "type": "Fighting",
+                    "value": "-20"
+                }
+            ],
+            "retreatCost": [
+                "Colorless",
+                "Colorless",
+                "Colorless"
+            ],
+            "convertedRetreatCost": 3,
+            "set": {
+                "id": "dp3",
+                "name": "Secret Wonders",
+                "series": "Diamond & Pearl",
+                "printedTotal": 132,
+                "total": 132,
+                "legalities": {
+                    "unlimited": "Legal"
+                },
+                "ptcgoCode": "SW",
+                "releaseDate": "2007/11/01",
+                "updatedAt": "2018/03/04 10:35:00",
+                "images": {
+                    "symbol": "https://images.pokemontcg.io/dp3/symbol.png",
+                    "logo": "https://images.pokemontcg.io/dp3/logo.png"
+                }
+            },
+            "number": "3",
+            "artist": "Daisuke Ito",
+            "rarity": "Rare Holo",
+            "flavorText": "It is said that CHARIZARD's fire burns hotter if it has experienced harsh battles.",
+            "nationalPokedexNumbers": [
+                6
+            ],
+            "legalities": {
+                "unlimited": "Legal"
+            },
+            "images": {
+                "small": "https://images.pokemontcg.io/dp3/3.png",
+                "large": "https://images.pokemontcg.io/dp3/3_hires.png"
+            },
+            "tcgplayer": {
+                "url": "https://prices.pokemontcg.io/tcgplayer/dp3-3",
+                "updatedAt": "2023/09/24",
+                "prices": {
+                    "holofoil": {
+                        "low": 58.99,
+                        "mid": 77.12,
+                        "high": 209.45,
+                        "market": 199.48,
+                        "directLow": 58.99
+                    },
+                    "reverseHolofoil": {
+                        "low": 64.0,
+                        "mid": 93.74,
+                        "high": 165.01,
+                        "market": 137.51,
+                        "directLow": 46.69
+                    }
+                }
+            },
+            "cardmarket": {
+                "url": "https://prices.pokemontcg.io/cardmarket/dp3-3",
+                "updatedAt": "2023/09/24",
+                "prices": {
+                    "averageSellPrice": 32.88,
+                    "lowPrice": 4.95,
+                    "trendPrice": 17.51,
+                    "germanProLow": 0.0,
+                    "suggestedPrice": 0.0,
+                    "reverseHoloSell": 10.0,
+                    "reverseHoloLow": 4.95,
+                    "reverseHoloTrend": 15.41,
+                    "lowPriceExPlus": 20.0,
+                    "avg1": 25.0,
+                    "avg7": 30.15,
+                    "avg30": 25.77,
+                    "reverseHoloAvg1": 14.0,
+                    "reverseHoloAvg7": 24.31,
+                    "reverseHoloAvg30": 32.36
+                }
+            }
+        },]}
+
+## Scrum Roles  
+- Product Owner/Scrum Master/DevOps: Jonathan Lewis
+- Frontend Developer: Jonathan Heasley
+- Integration Developer: Mike Byrd, Logan Conley
+
+## Weekly Meeting
+
+Thursday at 5pm. Meeting is held on Microsoft Teams in our group chat.
+
