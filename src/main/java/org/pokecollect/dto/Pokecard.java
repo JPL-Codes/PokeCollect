@@ -1,7 +1,7 @@
 package org.pokecollect.dto;
 
 import java.util.List;
-
+//asdfasdf
 public class Pokecard {
 
     private int id;
