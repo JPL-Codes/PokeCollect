@@ -1,10 +1,13 @@
 package org.pokecollect;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class Main {
+
     public static void main(String[] args) {
-
-
-        //testing git push to branch
-        System.out.println("Hello world!12");
+        SpringApplication.run(Main.class, args);
     }
+
 }
