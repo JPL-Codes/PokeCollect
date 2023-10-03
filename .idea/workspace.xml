@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43c810e9-9391-4321-990c-53285bec280b" name="Changes" comment="added start.html template">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/start.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="43c810e9-9391-4321-990c-53285bec280b" name="Changes" comment="added start.html template" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +69,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.EnterpriseApplication">
+  <component name="RunManager">
     <configuration name="EnterpriseApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="PokeCollect" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="org.pokecollect.EnterpriseApplication" />
@@ -81,9 +77,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="EnterpriseApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="PokeCollect" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="org.pokecollect.Main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.pokecollect.EnterpriseApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -113,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1695323446122</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added start.html template">
+      <created>1696372507967</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1696372507967</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
