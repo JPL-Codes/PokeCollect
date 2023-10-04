@@ -1,8 +1,10 @@
 package org.pokecollect.dto;
 
+import lombok.Data;
+
 import java.util.List;
-//asdfasdf
-public class Pokecard {
+
+public @Data class Pokecard {
 
     private int id;
     private String name;

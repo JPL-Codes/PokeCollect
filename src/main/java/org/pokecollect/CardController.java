@@ -1,5 +1,6 @@
 package org.pokecollect;
 
+import org.pokecollect.dto.Pokecard;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,6 +14,8 @@ public class CardController {
      */
     @RequestMapping("/")
     public String index() {
+        Pokecard myFirstCard = new Pokecard();
+        myFirstCard.setName("Charmander");
         return "start";
     }
 }
