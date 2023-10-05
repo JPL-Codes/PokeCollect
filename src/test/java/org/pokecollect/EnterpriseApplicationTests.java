@@ -10,4 +10,20 @@ class EnterpriseApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    void fetchPokemonCardsNamedCharizard_returnPokemonCardsNamedCharizard() {
+        givenSearchFieldIsAvailable();
+        whenTheUserEntersCharizardAndClicksTheSearchButton();
+        thenReturnPokemonCardsNamedCharizard();
+    }
+
+    private void givenSearchFieldIsAvailable() {
+    }
+
+    private void whenTheUserEntersCharizardAndClicksTheSearchButton() {
+    }
+
+    private void thenReturnPokemonCardsNamedCharizard() {
+    }
+
 }
