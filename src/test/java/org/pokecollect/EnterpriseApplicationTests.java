@@ -5,12 +5,8 @@ import org.pokecollect.dto.Pokecard;
 import org.pokecollect.service.IPokecardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -19,7 +15,6 @@ class EnterpriseApplicationTests {
     @Autowired
     private IPokecardService pokecardService;
     private Pokecard pokecard;
-    private ArrayList<Pokecard> pokecardList;
 
     @Test
     void contextLoads() {
@@ -44,33 +39,47 @@ class EnterpriseApplicationTests {
         assertEquals(83, id);
     }
 
-    /*@Test
-    void fetchAllPokecards_returnAllPokecard() {
+
+    @Test
+    void fetchPokecardsByName_returnAllPokecardsNamedCharizard() {
         givenSearchFieldIsAvailable();
-        whenTheUserEntersCharizardAndClicksTheSearchButton();
-        thenReturnPokemonCardsNamedCharizard();
+        whenTheUserSearchesCharizard();
+        thenReturnPokecardsNamedCharizard();
     }
 
     private void givenSearchFieldIsAvailable() {
     }
 
-    private void whenTheUserEntersABlankSearch() {
-        pokecard = pokecardService.getAllPokecards();
+    private void whenTheUserSearchesCharizard() {
+        pokecard = pokecardService.getPokecardsByName("Charizard");
     }
 
-    private void thenReturnAllPokecards() {
-        ArrayList<Pokecard> myCollection = new ArrayList<>();
-        for (Pokecard card : pokecardList)
-        {
-            myCollection.add(card);
+    private void thenReturnPokecardsNamedCharizard() {
+        String name = pokecard.getName();
+        assertEquals("Charizard", name);
+    }
+
+
+    @Test
+    void fetchPokecardsByType_returnAllWaterTypePokecards() {
+        givenSearchFieldIsAvailable();
+        whenTheUserSearchesWaterType();
+        thenReturnAllWaterTypePokecards();
+    }
+
+    private void whenTheUserSearchesWaterType() {
+        List<String> typeDesired = Arrays.asList("Water");
+        pokecard = pokecardService.getPokecardsByType(typeDesired);
+    }
+
+    private void thenReturnAllWaterTypePokecards() {
+        List<String> types = pokecard.getTypes();
+        if (types.size() == 2) {
+            assert (types.get(0).equals("Water") || types.get(1).equals("Water"));
+        } else {
+            assert types.get(0).equals("Water");
         }
-        Pokecard card1 = new Pokecard();
-        card1.setName("Charmander");
-        Pokecard card2 = new Pokecard();
-        card1.setName("Squirtle");
-        Pokecard card3 = new Pokecard();
-        card1.setName("Pikachu");
-        assertArrayEquals(new ArrayList<Pokecard>[] = Arrays.asList(card1, card2, card3), myCollection.toArray());
-    }*/
+    }
+
 
 }
