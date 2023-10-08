@@ -25,5 +25,7 @@ public interface IPokecardService {
      * @return a list of matching pokecards, or null if no matches found.
      */
     Pokecard getPokecardsByType(List<String> cardType);
+
+    Pokecard save(Pokecard pokecard) throws Exception;
 }
 

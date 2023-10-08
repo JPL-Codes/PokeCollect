@@ -1,13 +1,20 @@
 package org.pokecollect;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.pokecollect.dao.IPokecardDAO;
 import org.pokecollect.dto.Pokecard;
 import org.pokecollect.service.IPokecardService;
+import org.pokecollect.service.PokecardServiceStub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 class EnterpriseApplicationTests {
@@ -16,18 +23,23 @@ class EnterpriseApplicationTests {
     private IPokecardService pokecardService;
     private Pokecard pokecard;
 
+    @MockBean
+    private IPokecardDAO pokecardDAO;
+
     @Test
     void contextLoads() {
     }
 
     @Test
-    void fetchPokemonCardByID_returnPokemonCard() {
+    void fetchPokemonCardByID_returnPokemonCard() throws Exception {
         givenDataAreAvailable();
         whenSearchForPokemonCardWithID83();
         thenReturnPokemonCardWithID83();
     }
 
-    private void givenDataAreAvailable() {
+    private void givenDataAreAvailable() throws Exception{
+        Mockito.when(pokecardDAO.save(pokecard)).thenReturn(pokecard);
+        pokecardService = new PokecardServiceStub(pokecardDAO);
     }
 
     private void whenSearchForPokemonCardWithID83() {
@@ -41,13 +53,15 @@ class EnterpriseApplicationTests {
 
 
     @Test
-    void fetchPokecardsByName_returnAllPokecardsNamedCharizard() {
+    void fetchPokecardsByName_returnAllPokecardsNamedCharizard() throws Exception {
         givenSearchFieldIsAvailable();
         whenTheUserSearchesCharizard();
         thenReturnPokecardsNamedCharizard();
     }
 
-    private void givenSearchFieldIsAvailable() {
+    private void givenSearchFieldIsAvailable() throws Exception {
+        Mockito.when(pokecardDAO.save(pokecard)).thenReturn(pokecard);
+        pokecardService = new PokecardServiceStub(pokecardDAO);
     }
 
     private void whenTheUserSearchesCharizard() {
@@ -61,7 +75,7 @@ class EnterpriseApplicationTests {
 
 
     @Test
-    void fetchPokecardsByType_returnAllWaterTypePokecards() {
+    void fetchPokecardsByType_returnAllWaterTypePokecards() throws Exception {
         givenSearchFieldIsAvailable();
         whenTheUserSearchesWaterType();
         thenReturnAllWaterTypePokecards();
@@ -81,5 +95,25 @@ class EnterpriseApplicationTests {
         }
     }
 
+    @Test
+    void savePokecard_validateReturnPokecardWithIdAndNameAndLevelAndHpAndType() throws Exception {
+        givenDataAreAvailable();
+        whenTheUserSearchesNewPokemonAndSaves();
+        thenCreateNewPokecardRecordAndReturnIt();
+    }
+
+    private void whenTheUserSearchesNewPokemonAndSaves() {
+        pokecard.setId(null);
+        pokecard.setName(null);
+        pokecard.setLevel(null);
+        pokecard.setHp(null);
+        pokecard.setTypes(null);
+    }
+
+    private void thenCreateNewPokecardRecordAndReturnIt() throws Exception {
+        Pokecard searchedPokecard = pokecardService.save(pokecard);
+        assertEquals(pokecard, null);
+        verify(pokecardDAO, atLeastOnce()).save(pokecard);
+    }
 
 }
