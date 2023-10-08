@@ -43,11 +43,12 @@ class EnterpriseApplicationTests {
     }
 
     private void whenSearchForPokemonCardWithID83() {
+
         pokecard = pokecardService.fetchByID(83);
     }
 
     private void thenReturnPokemonCardWithID83() {
-        int id = pokecard.getId();
+        String id = pokecard.getId();
         assertEquals(83, id);
     }
 
@@ -65,6 +66,7 @@ class EnterpriseApplicationTests {
     }
 
     private void whenTheUserSearchesCharizard() {
+
         pokecard = pokecardService.getPokecardsByName("Charizard");
     }
 

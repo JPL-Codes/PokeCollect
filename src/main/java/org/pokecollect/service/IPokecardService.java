@@ -12,6 +12,8 @@ public interface IPokecardService {
      * */
     Pokecard fetchByID(int id);
 
+    void delete(int id) throws Exception;
+
     /**
      * Get pokecards with name matching user input.
      * @param cardName the name of the pokecard that the user is looking for.
@@ -27,5 +29,7 @@ public interface IPokecardService {
     Pokecard getPokecardsByType(List<String> cardType);
 
     Pokecard save(Pokecard pokecard) throws Exception;
+
+    List<Pokecard> fetchAll();
 }
 

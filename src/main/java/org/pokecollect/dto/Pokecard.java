@@ -6,12 +6,11 @@ import java.util.List;
 
 public @Data class Pokecard {
 
-    private int id;
+    private String id;
     private String name;
     private String level;
     private String hp;
     private List<String> types;
+    private String description;
 
-    public void setId(Integer o) {
-    }
 }

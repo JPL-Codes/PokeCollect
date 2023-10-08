@@ -2,12 +2,15 @@ package org.pokecollect.service;
 
 import org.pokecollect.dao.IPokecardDAO;
 import org.pokecollect.dto.Pokecard;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-@Component
+@Service
 public class PokecardServiceStub implements IPokecardService {
 
+    @Autowired
     public IPokecardDAO pokecardDAO;
 
     public PokecardServiceStub(){
@@ -15,14 +18,19 @@ public class PokecardServiceStub implements IPokecardService {
     }
 
     public PokecardServiceStub(IPokecardDAO pokecardDAO) {
+
         this.pokecardDAO = pokecardDAO;
     }
 
     @Override
     public Pokecard fetchByID(int id) {
-        Pokecard pokecard = new Pokecard();
-        pokecard.setId(83);
+        Pokecard pokecard = pokecardDAO.fetch(id);
         return pokecard;
+    }
+
+    @Override
+    public void delete(int id) throws Exception {
+        pokecardDAO.delete(id);
     }
 
     @Override
@@ -42,5 +50,10 @@ public class PokecardServiceStub implements IPokecardService {
     @Override
     public Pokecard save(Pokecard pokecard) throws Exception {
         return pokecardDAO.save(pokecard);
+    }
+
+    @Override
+    public List<Pokecard> fetchAll() {
+        return pokecardDAO.fetchAll();
     }
 }
