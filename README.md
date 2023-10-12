@@ -172,6 +172,7 @@ The user should be presented with a form to update card information, such as nam
 ![PokeCollect Class Diagram](https://github.com/JPL-Codes/PokeCollect/assets/122935645/7a5c9689-85ba-4e7a-9604-837091610dc9)
 
 ## JSON Schema
+```
 {
     "data": [
         {
@@ -299,6 +300,7 @@ The user should be presented with a form to update card information, such as nam
                 }
             }
         },]}
+```
 
 ## Scrum Roles  
 - Product Owner/Scrum Master/DevOps: Jonathan Lewis
