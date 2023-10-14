@@ -48,7 +48,7 @@ class EnterpriseApplicationTests {
     }
 
     private void thenReturnPokemonCardWithID83() {
-        String id = pokecard.getId();
+        int id = pokecard.getId();
         assertEquals(83, id);
     }
 
@@ -105,8 +105,8 @@ class EnterpriseApplicationTests {
     }
 
     private void whenTheUserSearchesNewPokemonAndSaves() {
-        pokecard.setId(null);
-        pokecard.setName(null);
+        pokecard.setId(83);
+        pokecard.setName("test1");
         pokecard.setLevel(null);
         pokecard.setHp(null);
         pokecard.setTypes(null);

@@ -34,8 +34,8 @@ public class CardController {
     }
 
     @GetMapping("/pokecard/{id}/")
-    public ResponseEntity getPokecardById(@PathVariable("id") String id) {
-        Pokecard foundPokecard = pokecardService.fetchByID(Integer.parseInt(id));
+    public ResponseEntity getPokecardById(@PathVariable("id") int id) {
+        Pokecard foundPokecard = pokecardService.fetchByID(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundPokecard, headers, HttpStatus.OK);
@@ -53,9 +53,9 @@ public class CardController {
     }
 
     @DeleteMapping("/pokecard/{id}/")
-    public ResponseEntity deletePokecard(@PathVariable("id") String id) {
+    public ResponseEntity deletePokecard(@PathVariable("id") int id) {
         try {
-            pokecardService.delete(Integer.parseInt(id));
+            pokecardService.delete(id);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
