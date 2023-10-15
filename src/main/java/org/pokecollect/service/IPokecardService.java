@@ -2,6 +2,8 @@ package org.pokecollect.service;
 
 import org.pokecollect.dto.Pokecard;
 
+import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.List;
 
 public interface IPokecardService {
@@ -31,5 +33,8 @@ public interface IPokecardService {
     Pokecard save(Pokecard pokecard) throws Exception;
 
     List<Pokecard> fetchAll();
+
+    HttpResponse<String> queryAPIByName(String userInput) throws IOException, InterruptedException;
 }
+
 
