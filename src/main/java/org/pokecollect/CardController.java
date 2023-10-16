@@ -30,17 +30,38 @@ public class CardController {
         return "start";
     }
 
+    /**
+     * GET endpoint listens for user search request and returns results page
+     * @param model
+     * @param inputReceived variable passed from navigation search box. Used to find desired pokecard.
+     * @param myObject model attribute to contain JSON returned from API. Used by results.html to build
+     *                 datatable.
+     * @return JSON data from API, results.html
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @GetMapping(value = "/results")
     public String results(ModelMap model, @RequestParam(value = "userInput") String inputReceived, @ModelAttribute String myObject) throws IOException, InterruptedException {
         HttpResponse<String> data = pokecardService.queryAPIByName(inputReceived);
-        /*if (model.getAttribute("myObject") == null) {
-            model.addAttribute("myObject", data.body());
-        } else {
-            model.getAttribute("myObject") = null;
-        }*/
         model.addAttribute("myObject", data.body());
         return "results";
     }
+
+    /**
+     * Void POST endpoint used to add card to user collection via button click.
+     *     AJAX request caller will display success or failure to user on the html page based on results
+     * @param card POJO built with javascript. Passed from results.html when the user clicks the 'Add' button
+     */
+    @PostMapping(value = "/results")
+
+    public void addPokecardViaAjax(@RequestBody Pokecard card) {
+        //TODO - this method successfully receives a card object from results.html.
+        //      Need to add: interface, service, a User & Collection dto, and a database for persistence
+        //      and to complete the CRUD operation
+        System.out.println(card);
+
+    }
+
 
     @GetMapping("/pokecard")
     @ResponseBody
@@ -50,7 +71,7 @@ public class CardController {
 
     @GetMapping("/pokecard/{id}/")
     public ResponseEntity getPokecardById(@PathVariable("id") String id) {
-        Pokecard foundPokecard = pokecardService.fetchByID(Integer.parseInt(id));
+        Pokecard foundPokecard = pokecardService.fetchByID(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundPokecard, headers, HttpStatus.OK);

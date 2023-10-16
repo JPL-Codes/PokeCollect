@@ -13,8 +13,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
-import static org.apache.logging.log4j.message.MapMessage.MapFormat.JSON;
-
 @Service
 public class PokecardServiceStub implements IPokecardService {
 
@@ -34,8 +32,9 @@ public class PokecardServiceStub implements IPokecardService {
     }
 
     @Override
-    public Pokecard fetchByID(int id) {
-        Pokecard pokecard = pokecardDAO.fetch(id);
+    public Pokecard fetchByID(String id) {
+        Pokecard pokecard = new Pokecard();
+        pokecard.setId("83");
         return pokecard;
     }
 

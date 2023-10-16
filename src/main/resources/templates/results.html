@@ -21,96 +21,63 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">PokéCollect</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <div th:replace="~{fragments/navigation :: navigation}"></div>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Collection</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-disabled="true">
-          Explore
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">In Progress</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0" th:action="@{/results}" th:object="${myObject}" method="get">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="userInput" value="">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+  <div class="hero">
+    <table id="pokemon-table" class="display">
+      <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Market Price</th>
+        <th>Add to Collection</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Data will be populated here -->
+      </tbody>
+    </table>
+    <p th:text="${myObject} ?: 'Unknown'" id="jsonData" th:value="${myObject}" class="hidden"></p>
   </div>
-</nav>
 
-<div class="hero">
-  <table id="pokemon-table" class="display">
-    <thead>
-    <tr>
-      <th></th>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Image</th>
-      <th>Market Price</th>
-      <th>Add to Collection</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Data will be populated here -->
-    </tbody>
-  </table>
-  <p th:text="${myObject} ?: 'Unknown'" id="jsonData" th:value="${myObject}" class="hidden"></p>
-</div>
+  <script>
+    $(document).ready(function () {
+      var jsonData = JSON.parse($('#jsonData').text());
 
-<script>
-  $(document).ready(function () {
-    var jsonData = JSON.parse($('#jsonData').text());
-
-    $('#pokemon-table').DataTable({
-      language: {
-        search: "Filter records:"
-      },
-      data: jsonData.data,
-      columns: [{
-        className: 'dt-control',
-        orderable: false,
-        data: null,
-        defaultContent: '',
-      },
-        { data: 'id' },
-        { data: 'name' },
-        { data: 'images.small', 'defaultContent': '',
-            "render": function (data) {
-              return '<img src="' + data + '">';
-            },
-          },
-        { data: 'tcgplayer.prices.holofoil.market', 'defaultContent': '' },
-        {
-          data: null,
-          defaultContent: '<button id="add" class="btn btn-primary">Add</button>',
-          targets: -1
+      $('#pokemon-table').DataTable({
+        language: {
+          search: "Filter records:"
         },
-      ],
+        data: jsonData.data,
+        columns: [{
+          className: 'dt-control',
+          orderable: false,
+          data: null,
+          defaultContent: '',
+        },
+          { data: 'id' },
+          { data: 'name' },
+          { data: 'images.small', 'defaultContent': '',
+              "render": function (data) {
+                return '<img src="' + data + '">';
+              },
+            },
+          { data: 'tcgplayer.prices.holofoil.market', 'defaultContent': '' },
+          {
+            data: null,
+            defaultContent: '<button id="addButton" type="button" class="btn btn-primary">Add</button>',
+            targets: -1
+          },
+        ],
+      });
+      $(".dataTables_wrapper")
+              .css("border","solid")
+              .css("background-color","slategray")
+              .css("opacity","97%");
     });
-    $(".dataTables_wrapper").css("border","solid");
-    $(".dataTables_wrapper").css("background-color","slategray");
-    $(".dataTables_wrapper").css("opacity","97%");
-  });
-</script>
+  </script>
 </body>
 <script type="text/javascript" src="/js/main.js"></script>
 </html>

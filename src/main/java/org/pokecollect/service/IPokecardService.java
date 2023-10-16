@@ -12,9 +12,7 @@ public interface IPokecardService {
      * @param id a unique identifier for a pokecard.
      * @return the matching pokecard, or null if no matches found.
      * */
-    Pokecard fetchByID(int id);
-
-    void delete(int id) throws Exception;
+    Pokecard fetchByID(String id);
 
     /**
      * Get pokecards with name matching user input.
@@ -30,11 +28,19 @@ public interface IPokecardService {
      */
     Pokecard getPokecardsByType(List<String> cardType);
 
+    /**
+     *
+     * @param userInput
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    HttpResponse<String> queryAPIByName(String userInput) throws IOException, InterruptedException;
+
+
     Pokecard save(Pokecard pokecard) throws Exception;
 
     List<Pokecard> fetchAll();
 
-    HttpResponse<String> queryAPIByName(String userInput) throws IOException, InterruptedException;
+    void delete(int id) throws Exception;
 }
-
-
