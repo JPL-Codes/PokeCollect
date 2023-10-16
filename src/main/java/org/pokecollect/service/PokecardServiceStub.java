@@ -22,6 +22,7 @@ public class PokecardServiceStub implements IPokecardService {
         this.pokecardDAO = pokecardDAO;
     }
 
+
     @Override
     public Pokecard fetchByID(int id) {
         Pokecard pokecard = pokecardDAO.fetch(id);

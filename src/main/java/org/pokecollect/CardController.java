@@ -32,14 +32,19 @@ public class CardController {
     public List<Pokecard> fetchAllPokecards() {
         return pokecardService.fetchAll();
     }
-
-    @GetMapping("/pokecard/{id}/")
-    public ResponseEntity getPokecardById(@PathVariable("id") String id) {
-        Pokecard foundPokecard = pokecardService.fetchByID(Integer.parseInt(id));
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity(foundPokecard, headers, HttpStatus.OK);
-    }
+    
+    @GetMapping("/pokecard/{id}")
+    public ResponseEntity<Pokecard> getPokecardById(@PathVariable("id") String id) {
+        try {
+            int cardId = Integer.parseInt(id);
+            Pokecard foundPokecard = pokecardService.fetchByID(cardId);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>(foundPokecard, headers, HttpStatus.OK);
+        } catch (NumberFormatException e) {
+            // Handle invalid ID input
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
     @PostMapping(value="/pokecard", consumes = "application/json", produces = "application/json")
     public Pokecard createPokecard(@RequestBody Pokecard card) {
