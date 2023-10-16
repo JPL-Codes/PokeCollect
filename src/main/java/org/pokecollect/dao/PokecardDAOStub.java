@@ -11,10 +11,13 @@ import java.util.List;
 public class PokecardDAOStub implements IPokecardDAO{
 
     HashMap<Integer, Pokecard> allPokecards = new HashMap<>();
+    HashMap<String, HashMap> allSets = new HashMap<>();
     @Override
     public Pokecard save(Pokecard pokecard) throws Exception {
-        String pokecardId = pokecard.getId();
-        allPokecards.put(Integer.parseInt(pokecardId), pokecard);
+        int pokecardSet = pokecard.getSet();
+        int pokecardId = pokecard.getId();
+        allPokecards.put(pokecardId, pokecard);
+        allSets.put(pokecardSet, pokecardId)
         return pokecard;
     }
 
@@ -25,12 +28,16 @@ public class PokecardDAOStub implements IPokecardDAO{
     }
 
     @Override
-    public Pokecard fetch(int id) {
-        return allPokecards.get(id);
+    public Pokecard fetch(String set, int id) {
+        ArrayList<Pokecard> selectedSet = new ArrayList<Pokecard>();
+        selectedSet.add(allSets.get(set))
+        return selectedSet(id);
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(String set, int id) {
+        ArrayList<Pokecard> selectedSet = new ArrayList<Pokecard>();
+        selectedSet.add(allSets.get(set))
         allPokecards.remove(id);
     }
 }
