@@ -10,22 +10,16 @@ import java.util.List;
 @Service
 public class PokecardServiceStub implements IPokecardService {
 
+    private final IPokecardDAO pokecardDAO;
+
     @Autowired
-    public IPokecardDAO pokecardDAO;
-
-    public PokecardServiceStub(){
-
-    }
-
     public PokecardServiceStub(IPokecardDAO pokecardDAO) {
-
         this.pokecardDAO = pokecardDAO;
     }
 
     @Override
     public Pokecard fetchByID(int id) {
-        Pokecard pokecard = pokecardDAO.fetch(id);
-        return pokecard;
+        return pokecardDAO.fetch(id);
     }
 
     @Override
