@@ -15,15 +15,22 @@ import java.io.IOException;
 import java.net.http.HttpResponse;
 import java.util.List;
 
+/**
+ * A Spring Boot controller for handling Pokecard-related web requests and interactions.
+ */
 @Controller
 @SessionAttributes("myObject")
 public class CardController {
 
+
     @Autowired
     IPokecardService pokecardService;
+
     /**
-     * Listens for a connection to root (/) endpoint
-     * @return start page
+     * Listens for a connection to the root (/) endpoint and returns the start page.
+     *
+     * @param myObject Model attribute used to contain JSON data returned from the API.
+     * @return The start page.
      */
     @RequestMapping("/")
     public String index(@ModelAttribute String myObject) {
@@ -57,7 +64,7 @@ public class CardController {
     public void addPokecardViaAjax(@RequestBody Pokecard card) {
         //TODO - this method successfully receives a card object from results.html.
         //      Need to add: interface, service, a User & Collection dto, and a database for persistence
-        //      and to complete the CRUD operation
+        //      to complete the CRUD operation
         System.out.println(card);
 
     }

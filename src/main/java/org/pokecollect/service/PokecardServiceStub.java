@@ -13,6 +13,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
+/**
+ * A stub implementation of the {@link IPokecardService} interface for managing Pokecards.
+ */
 @Service
 public class PokecardServiceStub implements IPokecardService {
 
@@ -31,11 +34,77 @@ public class PokecardServiceStub implements IPokecardService {
         this.pokecardDAO = pokecardDAO;
     }
 
+    /**
+     * Fetches a pokecard by its unique ID.
+     *
+     * @param id A unique identifier for a pokecard.
+     * @return The matching pokecard, or null if no matches are found.
+     */
+    //TODO implement live operations
     @Override
     public Pokecard fetchByID(String id) {
         Pokecard pokecard = new Pokecard();
         pokecard.setId("83");
         return pokecard;
+    }
+
+    /**
+     * Retrieves pokecards with names matching user input.
+     *
+     * @param cardName The name of the pokecard that the user is looking for.
+     * @return A list of matching pokecards, or null if no matches are found.
+     */
+    //TODO implement live operations
+    @Override
+    public Pokecard getPokecardsByName(String cardName) {
+        Pokecard pokecard = new Pokecard();
+        pokecard.setName(cardName);
+        return pokecard;
+    }
+
+    /**
+     * Retrieves pokecards with types matching user input.
+     *
+     * @param cardType The type of the pokecard that the user is looking for.
+     * @return A list of matching pokecards, or null if no matches are found.
+     */
+    //TODO implement live operations
+    @Override
+    public Pokecard getPokecardsByType(List<String> cardType) {
+        Pokecard pokecard = new Pokecard();
+        pokecard.setTypes(cardType);
+        return pokecard;
+    }
+
+    /**
+     * Gets matching card JSON data from an external API using the user's input as the name search parameter.
+     *
+     * @param userInput The text the user entered for the search.
+     * @return Matching card data in JSON format.
+     * @throws IOException If there is an issue with the HTTP request.
+     * @throws InterruptedException If the HTTP request is interrupted.
+     */
+    @Override
+    public HttpResponse<String> queryAPIByName(String userInput) throws IOException, InterruptedException {
+
+        // create a client
+        var client = HttpClient.newHttpClient();
+        // create a request
+        var request = HttpRequest.newBuilder(
+                URI.create("https://api.pokemontcg.io/v2/cards?q=name:" + userInput))
+                    .header("accept", "application/json")
+                    .header("X-Api-Key", apikey)
+                    .build();
+        // use the client to send the request and capture response
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        return response;
+    }
+
+
+    @Override
+    public Pokecard save(Pokecard pokecard) throws Exception {
+        return pokecardDAO.save(pokecard);
     }
 
     @Override
@@ -44,47 +113,7 @@ public class PokecardServiceStub implements IPokecardService {
     }
 
     @Override
-    public Pokecard getPokecardsByName(String cardName) {
-        Pokecard pokecard = new Pokecard();
-        pokecard.setName(cardName);
-        return pokecard;
-    }
-
-    @Override
-    public Pokecard getPokecardsByType(List<String> cardType) {
-        Pokecard pokecard = new Pokecard();
-        pokecard.setTypes(cardType);
-        return pokecard;
-    }
-
-    @Override
-    public Pokecard save(Pokecard pokecard) throws Exception {
-        return pokecardDAO.save(pokecard);
-    }
-
-    @Override
     public List<Pokecard> fetchAll() {
         return pokecardDAO.fetchAll();
-    }
-
-    @Override
-    public HttpResponse<String> queryAPIByName(String userInput) throws IOException, InterruptedException {
-
-        // create a client
-        var client = HttpClient.newHttpClient();
-
-
-        // create a request
-        var request = HttpRequest.newBuilder(
-                        URI.create("https://api.pokemontcg.io/v2/cards?q=name:" + userInput))
-                .header("accept", "application/json")
-                // API KEY REQUIRED - Put your API key in the line below
-                .header("X-Api-Key", apikey)
-                .build();
-
-        // use the client to send the request and capture response
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        return response;
     }
 }

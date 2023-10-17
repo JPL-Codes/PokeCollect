@@ -14,6 +14,9 @@ $(document).ready(function () {
     showDetails();
 });
 
+/**
+ * Adds a "Add to Collection" button to the Pokemon table rows and handles the click event.
+ */
 function addPokeCardButton() {
     $('#pokemon-table tbody').on('click', 'Button', function () {
         let row = $(this).closest('tr');

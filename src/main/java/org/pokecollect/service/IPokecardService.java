@@ -6,41 +6,51 @@ import java.io.IOException;
 import java.net.http.HttpResponse;
 import java.util.List;
 
+/**
+ * The interface defining the service methods for managing Pokecards. These methods provide functionality for
+ * fetching, saving, deleting, and querying Pokecards, as well as fetching a list of all available Pokecards.
+ */
 public interface IPokecardService {
+
     /**
-     * Fetch a pokecard with a given ID.
-     * @param id a unique identifier for a pokecard.
-     * @return the matching pokecard, or null if no matches found.
-     * */
+     * Fetches a Pokecard by its unique ID.
+     *
+     * @param id The unique identifier of the Pokecard to be fetched.
+     * @return The fetched Pokecard, or null if it does not exist.
+     */
     Pokecard fetchByID(String id);
 
     /**
-     * Get pokecards with name matching user input.
-     * @param cardName the name of the pokecard that the user is looking for.
-     * @return a list of matching pokecards, or null if no matches found.
+     * Retrieves a Pokecard by its name.
+     *
+     * @param cardName The name of the Pokecard to be retrieved.
+     * @return The Pokecard with the specified name, or null if not found.
      */
     Pokecard getPokecardsByName(String cardName);
 
     /**
-     * Get pokecards with name matching user input.
-     * @param cardType the type of the pokecard that the user is looking for.
-     * @return a list of matching pokecards, or null if no matches found.
+     * Retrieves a list of Pokecards based on their types.
+     *
+     * @param cardType The types of Pokecards to be retrieved.
+     * @return A list of Pokecards matching the specified types.
      */
     Pokecard getPokecardsByType(List<String> cardType);
 
     /**
+     * Queries an external API for Pokecards by name.
      *
-     * @param userInput
-     * @return
-     * @throws IOException
-     * @throws InterruptedException
+     * @param userInput The name or query string to search for Pokecards in an external API.
+     * @return An HTTP response containing the API query results.
+     * @throws IOException If there is an issue with the HTTP request.
+     * @throws InterruptedException If the HTTP request is interrupted.
      */
     HttpResponse<String> queryAPIByName(String userInput) throws IOException, InterruptedException;
 
 
     Pokecard save(Pokecard pokecard) throws Exception;
 
+    void delete(int id) throws Exception;
+
     List<Pokecard> fetchAll();
 
-    void delete(int id) throws Exception;
 }

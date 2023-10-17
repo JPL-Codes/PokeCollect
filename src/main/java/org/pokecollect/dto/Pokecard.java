@@ -4,6 +4,10 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * Represents a Pokemon card, specifically a "Pokecard," with various attributes including ID, name, level, HP,
+ * types, and description.
+ */
 public @Data class Pokecard {
 
     private String id;
