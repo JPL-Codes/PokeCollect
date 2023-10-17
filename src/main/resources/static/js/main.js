@@ -32,8 +32,6 @@ function addPokeCardButton() {
         data.hp = table.row(row).data().hp;
         data.types = table.row(row).data().types;
 
-        data.description = table.row(row).data().description;
-
         console.log(data);
 
 
@@ -93,8 +91,16 @@ function formatRowDetails(rowDetails) {
                     <td>${rowDetails.set.name}</td>
                 </tr>
                 <tr>
-                    <td>Image: </td>
-                    <td><img src="${rowDetails.images.small}"</td>
+                    <td>Level: </td>
+                    <td>${rowDetails.level}</td>
+                </tr>
+                <tr>
+                    <td>HP: </td>
+                    <td>${rowDetails.hp}</td>
+                </tr>
+                <tr>
+                    <td>Types: </td>
+                    <td>${rowDetails.types}</td>
                 </tr>
                 
             </table>`;

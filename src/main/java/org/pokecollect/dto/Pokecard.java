@@ -15,6 +15,5 @@ public @Data class Pokecard {
     private String level;
     private String hp;
     private List<String> types;
-    private String description;
 
 }
