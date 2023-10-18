@@ -1,5 +1,6 @@
 package org.pokecollect.service;
 
+import com.sun.net.httpserver.HttpContext;
 import org.pokecollect.dao.IPokecardDAO;
 import org.pokecollect.dto.Pokecard;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +98,7 @@ public class PokecardServiceStub implements IPokecardService {
                     .build();
         // use the client to send the request and capture response
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
 
         return response;
     }
