@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--Bootstrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!--Datatables-->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+  <!--Autocomplete-->
+
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/ui-darkness/jquery-ui.css">
+  <!--Custom Styles-->
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <title>PokeCollect</title>
+</head>
+
+<body>
+  <div th:replace="~{fragments/navigation :: navigation}"></div>
+
+  <div class="hero">
+    <table id="pokemon-table" class="display">
+      <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Market Price</th>
+        <th>Add to Collection</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Data will be populated here -->
+      </tbody>
+    </table>
+    <p th:text="${myObject} ?: 'Unknown'" id="jsonData" th:value="${myObject}" class="hidden"></p>
+  </div>
+
+  <script>
+
+    $(document).ready(function () {
+
+
+      var jsonData = JSON.parse($('#jsonData').text());
+
+      $('#pokemon-table').DataTable({
+        language: {
+          search: "Filter records:"
+        },
+        data: jsonData.data,
+        columns: [{
+          className: 'dt-control',
+          orderable: false,
+          data: null,
+          defaultContent: '',
+        },
+          { data: 'id' },
+          { data: 'name' },
+          { data: 'images.small', 'defaultContent': '',
+              "render": function (data) {
+                return '<img src="' + data + '">';
+              },
+            },
+          { data: 'tcgplayer.prices.holofoil.market', 'defaultContent': '' },
+          {
+            data: null,
+            defaultContent: '<button id="addButton" type="button" class="btn btn-primary">Add</button>',
+            targets: -1
+          },
+        ],
+      });
+      $(".dataTables_wrapper")
+              .css("border","solid")
+              .css("background-color","slategray")
+              .css("opacity","97%");
+    });
+  </script>
+</body>
+<script type="text/javascript" src="/js/main.js"></script>
+</html>

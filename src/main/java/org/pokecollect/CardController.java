@@ -8,24 +8,85 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.List;
 
-//testing spring annotations to ensure successful import
+/**
+ * A Spring Boot controller for handling Pokecard-related web requests and interactions.
+ */
 @Controller
+@SessionAttributes("myObject")
 public class CardController {
+
 
     @Autowired
     IPokecardService pokecardService;
+
     /**
-     * Listens for a connection to root (/) endpoint
-     * @return start page
+     * Listens for a connection to the root (/) endpoint and returns the start page.
+     *
+     * @param myObject Model attribute used to contain JSON data returned from the API.
+     * @return The start page.
      */
     @RequestMapping("/")
-    public String index() {
+    public String index(@ModelAttribute String myObject) {
         return "start";
     }
+
+    /**
+     * GET endpoint listens for user search request and returns results page
+     * @param model
+     * @param inputReceived variable passed from navigation search box. Used to find desired pokecard.
+     * @param myObject model attribute to contain JSON returned from API. Used by results.html to build
+     *                 datatable.
+     * @return JSON data from API, results.html
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    @GetMapping(value = "/results")
+    public String results(ModelMap model, @RequestParam(value = "userInput") String inputReceived, @ModelAttribute String myObject) throws IOException, InterruptedException {
+        HttpResponse<String> data = pokecardService.queryAPIByName(inputReceived);
+        model.addAttribute("myObject", data.body());
+        return "results";
+    }
+
+    /**
+     * Void POST endpoint used to add card to user collection via button click.
+     *     AJAX request caller will display success or failure to user on the html page based on results
+     * @param card POJO built with javascript. Passed from results.html when the user clicks the 'Add' button
+     */
+    @PostMapping(value = "/results")
+
+    public void addPokecardViaAjax(@RequestBody Pokecard card) {
+        //TODO - this method successfully receives a card object from results.html.
+        //      Need to add: interface, service, a User & Collection dto, and a database for persistence
+        //      to complete the CRUD operation
+        System.out.println(card);
+
+    }
+
+    /*@GetMapping("/searchBoxNameAutocomplete")
+    @ResponseBody
+    public List<String> searchBoxNameAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
+        // create Object Mapper
+        ObjectMapper mapper = new ObjectMapper();
+
+        // read JSON file and map/convert to java POJO
+        try {
+            Pokemon suspects = mapper.readValue(new File("src/main/resources/static/json/pokemonNameList.json"), Pokemon.class);
+            System.out.println(suspects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<String> suspectsList = new ArrayList<>();
+
+        return suspectsList;
+    }*/
+
 
     @GetMapping("/pokecard")
     @ResponseBody
@@ -35,7 +96,7 @@ public class CardController {
 
     @GetMapping("/pokecard/{id}/")
     public ResponseEntity getPokecardById(@PathVariable("id") String id) {
-        Pokecard foundPokecard = pokecardService.fetchByID(Integer.parseInt(id));
+        Pokecard foundPokecard = pokecardService.fetchByID(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundPokecard, headers, HttpStatus.OK);

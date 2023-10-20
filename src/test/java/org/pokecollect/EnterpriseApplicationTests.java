@@ -21,7 +21,7 @@ class EnterpriseApplicationTests {
 
     @Autowired
     private IPokecardService pokecardService;
-    private Pokecard pokecard;
+    private Pokecard pokecard = new Pokecard();
 
     @MockBean
     private IPokecardDAO pokecardDAO;
@@ -44,12 +44,12 @@ class EnterpriseApplicationTests {
 
     private void whenSearchForPokemonCardWithID83() {
 
-        pokecard = pokecardService.fetchByID(83);
+        pokecard = pokecardService.fetchByID("83");
     }
 
     private void thenReturnPokemonCardWithID83() {
         String id = pokecard.getId();
-        assertEquals(83, id);
+        assertEquals("83", id);
     }
 
 
@@ -105,7 +105,7 @@ class EnterpriseApplicationTests {
     }
 
     private void whenTheUserSearchesNewPokemonAndSaves() {
-        pokecard.setId(null);
+        pokecard.setId("5");
         pokecard.setName(null);
         pokecard.setLevel(null);
         pokecard.setHp(null);
@@ -114,7 +114,7 @@ class EnterpriseApplicationTests {
 
     private void thenCreateNewPokecardRecordAndReturnIt() throws Exception {
         Pokecard searchedPokecard = pokecardService.save(pokecard);
-        assertEquals(pokecard, null);
+        assertEquals("5", pokecard.getId());
         verify(pokecardDAO, atLeastOnce()).save(pokecard);
     }
 

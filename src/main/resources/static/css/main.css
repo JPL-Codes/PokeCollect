@@ -1,0 +1,12 @@
+.hero {
+    background-image: url(../images/SI_PokemonCollect.jpg);
+    min-height: 110vh;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.hidden {
+    display: none;
+}
