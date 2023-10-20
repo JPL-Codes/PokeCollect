@@ -9,10 +9,21 @@ $(document).ready(function () {
     'use strict';
     table = $('#pokemon-table').DataTable();
 
+    getPokemonNamesAutocomplete();
+
     addPokeCardButton();
 
     showDetails();
 });
+
+function getPokemonNamesAutocomplete() {
+    $(function () {
+        $('#searchBox').autocomplete({
+            source: "getPokemonNamesAutocomplete",
+            minLength: 3
+        });
+    });
+}
 
 /**
  * Adds a "Add to Collection" button to the Pokemon table rows and handles the click event.
@@ -104,4 +115,4 @@ function formatRowDetails(rowDetails) {
                 </tr>
                 
             </table>`;
-};
+}

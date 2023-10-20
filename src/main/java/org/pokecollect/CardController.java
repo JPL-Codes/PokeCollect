@@ -69,6 +69,24 @@ public class CardController {
 
     }
 
+    /*@GetMapping("/searchBoxNameAutocomplete")
+    @ResponseBody
+    public List<String> searchBoxNameAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
+        // create Object Mapper
+        ObjectMapper mapper = new ObjectMapper();
+
+        // read JSON file and map/convert to java POJO
+        try {
+            Pokemon suspects = mapper.readValue(new File("src/main/resources/static/json/pokemonNameList.json"), Pokemon.class);
+            System.out.println(suspects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<String> suspectsList = new ArrayList<>();
+
+        return suspectsList;
+    }*/
+
 
     @GetMapping("/pokecard")
     @ResponseBody
