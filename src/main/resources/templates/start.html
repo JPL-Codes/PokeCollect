@@ -16,7 +16,12 @@
 
 <body>
     <div th:replace="~{fragments/navigation :: navigation}"></div>
-    <div class="hero"></div>
+    <div class="hero">
+       <p>YODA <audio controls autoplay>
+            <source th:src="@{/audio/IndexTheme.mp3}" type="audio/mpeg">
+        </audio>
+       </p>
+    </div>
 
     <script type="text/javascript" src="/js/index.js"></script>
 </body>

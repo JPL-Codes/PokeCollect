@@ -14,11 +14,11 @@ import java.util.List;
 @Repository
 public class PokecardDAOStub implements IPokecardDAO{
 
-    HashMap<Integer, Pokecard> allPokecards = new HashMap<>();
+    HashMap<String, Pokecard> allPokecards = new HashMap<>();
     @Override
     public Pokecard save(Pokecard pokecard) throws Exception {
         String pokecardId = pokecard.getId();
-        allPokecards.put(Integer.parseInt(pokecardId), pokecard);
+        allPokecards.put(pokecardId, pokecard);
         return pokecard;
     }
 

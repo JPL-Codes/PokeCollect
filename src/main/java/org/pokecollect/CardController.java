@@ -66,6 +66,11 @@ public class CardController {
         //      Need to add: interface, service, a User & Collection dto, and a database for persistence
         //      to complete the CRUD operation
         System.out.println(card);
+        try {
+            pokecardService.save(card);
+        } catch (Exception e){
+            //TODO add logging
+        }
 
     }
 
@@ -113,6 +118,7 @@ public class CardController {
         return card;
     }
 
+    //asdf
     @DeleteMapping("/pokecard/{id}/")
     public ResponseEntity deletePokecard(@PathVariable("id") String id) {
         try {
