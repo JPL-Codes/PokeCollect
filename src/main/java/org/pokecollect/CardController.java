@@ -1,5 +1,6 @@
 package org.pokecollect;
 
+import org.pokecollect.dao.UserRepository;
 import org.pokecollect.dto.Pokecard;
 import org.pokecollect.service.IPokecardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,15 @@ public class CardController {
     @Autowired
     IPokecardService pokecardService;
 
+    private final UserRepository userRepository;
+
+    public CardController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+
+
+
     /**
      * Listens for a connection to the root (/) endpoint and returns the start page.
      *
@@ -35,6 +46,11 @@ public class CardController {
     @RequestMapping("/")
     public String index(@ModelAttribute String myObject) {
         return "start";
+    }
+
+    @RequestMapping("/login")
+    public String login(@ModelAttribute String myObject) {
+        return "login";
     }
 
     /**
@@ -48,6 +64,7 @@ public class CardController {
      * @throws InterruptedException
      */
     @GetMapping(value = "/results")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String results(ModelMap model, @RequestParam(value = "userInput") String inputReceived, @ModelAttribute String myObject) throws IOException, InterruptedException {
         HttpResponse<String> data = pokecardService.queryAPIByName(inputReceived);
         model.addAttribute("myObject", data.body());
@@ -60,7 +77,7 @@ public class CardController {
      * @param card POJO built with javascript. Passed from results.html when the user clicks the 'Add' button
      */
     @PostMapping(value = "/results")
-
+    @PreAuthorize("hasRole('ROLE_USER')")
     public void addPokecardViaAjax(@RequestBody Pokecard card) {
         //TODO - this method successfully receives a card object from results.html.
         //      Need to add: interface, service, a User & Collection dto, and a database for persistence
