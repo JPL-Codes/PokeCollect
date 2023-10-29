@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="en">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -17,12 +17,19 @@
   <!--Custom Styles-->
   <link rel="stylesheet" type="text/css" href="/css/main.css">
   <title>PokeCollect</title>
+
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <!-- default header name is X-CSRF-TOKEN -->
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 
 <body>
   <div th:replace="~{fragments/navigation :: navigation}"></div>
-
+  <span sec:authentication="name">Username</span><span sec:authentication="principal.authorities">Roles</span>
   <div class="hero">
+    <div>
+    <p><span sec:authentication="name">Username</span><span sec:authentication="principal.authorities">Roles</span></p>
+    </div>
     <table id="pokemon-table" class="display">
       <thead>
       <tr>

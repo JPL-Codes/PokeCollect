@@ -1,8 +1,11 @@
 package org.pokecollect.service;
 
-import com.sun.net.httpserver.HttpContext;
 import org.pokecollect.dao.IPokecardDAO;
+import org.pokecollect.dao.PokecardRepository;
+import org.pokecollect.dao.UserRepository;
 import org.pokecollect.dto.Pokecard;
+import org.pokecollect.dto.SecurityUser;
+import org.pokecollect.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A stub implementation of the {@link IPokecardService} interface for managing Pokecards.
@@ -25,6 +29,12 @@ public class PokecardServiceStub implements IPokecardService {
 
     @Autowired
     public IPokecardDAO pokecardDAO;
+
+    @Autowired
+    private PokecardRepository pokecardRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public PokecardServiceStub(){
 
@@ -103,6 +113,25 @@ public class PokecardServiceStub implements IPokecardService {
         return response;
     }
 
+    @Override
+    public void addPokecardToCollection(String username, Pokecard card) {
+
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.getPokecardCollection().add(card);
+            userRepository.save(user);
+
+            pokecardRepository.save(card);
+        }
+    }
+
+    @Override
+    public List<Pokecard> getUserPokecardCollection(SecurityUser securityUser) {
+        Long id = securityUser.getId();
+        return userRepository.findPokecardCollectionByUserId(id);
+    }
+
 
     @Override
     public Pokecard save(Pokecard pokecard) throws Exception {
@@ -118,4 +147,5 @@ public class PokecardServiceStub implements IPokecardService {
     public List<Pokecard> fetchAll() {
         return pokecardDAO.fetchAll();
     }
+
 }

@@ -9,10 +9,13 @@ import java.util.Collection;
 
 public class SecurityUser implements UserDetails {
 
+    private Long id;
     private User user;
 
-    public SecurityUser(User user) {
+    public SecurityUser(User user, Long id) {
+
         this.user = user;
+        this.id = id;
     }
 
     @Override
@@ -53,5 +56,9 @@ public class SecurityUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

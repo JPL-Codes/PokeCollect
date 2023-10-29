@@ -25,6 +25,15 @@ function getPokemonNamesAutocomplete() {
     });
 }
 
+
+$(function () {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+});
+
 /**
  * Adds a "Add to Collection" button to the Pokemon table rows and handles the click event.
  */
@@ -45,6 +54,11 @@ function addPokeCardButton() {
 
         console.log(data);
 
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+        console.log('The token is ' + token)
+        console.log('The header is ' + header)
 
         $.ajax({
             type : "POST",
@@ -52,6 +66,7 @@ function addPokeCardButton() {
             contentType: 'application/json',
             data: JSON.stringify(data),
             timeout : 100000,
+ //           headers : {header : header, token : token},
             success : function(result) {
                 alert(data.name + ' has been successfully added to your collection!');
                 console.log("SUCCESS: ", data);

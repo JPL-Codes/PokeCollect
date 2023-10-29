@@ -1,6 +1,7 @@
 package org.pokecollect.service;
 
 import org.pokecollect.dto.Pokecard;
+import org.pokecollect.dto.SecurityUser;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
@@ -53,4 +54,7 @@ public interface IPokecardService {
 
     List<Pokecard> fetchAll();
 
+    void addPokecardToCollection(String username, Pokecard card);
+
+    List<Pokecard> getUserPokecardCollection(SecurityUser securityUser);
 }

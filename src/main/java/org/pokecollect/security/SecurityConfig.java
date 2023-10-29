@@ -15,11 +15,14 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.server.csrf.CsrfToken;
 
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
 
     private final JpaUserDetailsService jpaUserDetailsService;
@@ -31,11 +34,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+               // .csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/audio/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/results").authenticated()
+                      //  .requestMatchers(HttpMethod.POST, "/results").hasRole("ROLE_USER")
+                        .anyRequest().permitAll()
+
                 )
                 .userDetailsService(jpaUserDetailsService)
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                .headers(headers -> headers.frameOptions().sameOrigin())
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()

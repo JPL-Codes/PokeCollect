@@ -1,9 +1,12 @@
 package org.pokecollect.dto;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -28,6 +31,14 @@ public class User {
 
     @Column(name = "roles")
     private String roles;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_pokecards",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="pokecard_pokecardId")
+    )
+    private List<Pokecard> pokecardCollection;
 
     public User() {
 
@@ -69,6 +80,14 @@ public class User {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public List<Pokecard> getPokecardCollection() {
+        return pokecardCollection;
+    }
+
+    public void setPokecardCollection(List<Pokecard> pokecardCollection) {
+        this.pokecardCollection = pokecardCollection;
     }
 
     @Override
