@@ -1,7 +1,6 @@
 package org.pokecollect.dto;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
