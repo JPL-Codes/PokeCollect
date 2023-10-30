@@ -25,11 +25,7 @@
 
 <body>
   <div th:replace="~{fragments/navigation :: navigation}"></div>
-  <span sec:authentication="name">Username</span><span sec:authentication="principal.authorities">Roles</span>
   <div class="hero">
-    <div>
-    <p><span sec:authentication="name">Username</span><span sec:authentication="principal.authorities">Roles</span></p>
-    </div>
     <table id="pokemon-table" class="display">
       <thead>
       <tr>

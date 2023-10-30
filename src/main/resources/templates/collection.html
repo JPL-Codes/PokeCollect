@@ -25,20 +25,25 @@
 
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
-<span sec:authentication="name">Username</span><span sec:authentication="principal.authorities">Roles</span>
 <div class="hero">
-    <h1>User's Pokecard Collection</h1>
-    <table>
-        <thead>
+    <div class="collectionHeader">
+        <h1 style="display: inline">Pokecard Collection : Welcome <h1 style="display: inline" th:text="${user.username}"></h1></h1>
+    </div>
+    <table class="table table-dark table-striped">
+        <thead class="table-header">
             <tr>
                 <th>Name</th>
                 <th>Level</th>
+                <th>HP</th>
+                <th>Types</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="pokecard : ${userCollection}">
                 <td th:text="${pokecard.name}"></td>
                 <td th:text="${pokecard.level}"></td>
+                <td th:text="${pokecard.hp}"></td>
+                <td th:text="${pokecard.types}"></td>
             </tr>
         </tbody>
     </table>

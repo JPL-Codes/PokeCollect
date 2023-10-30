@@ -66,14 +66,14 @@ public class CardController {
        // User user = (User) authentication.getPrincipal();
         if (authentication != null) {
             SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
-            Optional<User> user = userRepository.findByUsername(securityUser.getUsername());
+            Optional<User> optionalUser = userRepository.findByUsername(securityUser.getUsername());
 
-
-            model.addAttribute("user", user);
-
-            List<Pokecard> pokecardCollection = pokecardService.getUserPokecardCollection(securityUser);
-
-            model.addAttribute("userCollection", pokecardCollection);
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                model.addAttribute("user", user);
+                List<Pokecard> pokecardCollection = pokecardService.getUserPokecardCollection(securityUser);
+                model.addAttribute("userCollection", pokecardCollection);
+            }
         }
         return "collection";
     }
