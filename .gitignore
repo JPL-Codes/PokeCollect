@@ -41,4 +41,5 @@ build/
 .DS_Store
 
 #Hide api
-src/main/resources/application.properties
+application-dev.properties
+CardController

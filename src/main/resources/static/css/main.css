@@ -10,3 +10,36 @@
 .hidden {
     display: none;
 }
+
+body {
+    margin-top: 55px;
+}
+
+table {
+    opacity: 99%;
+}
+
+.collectionHeader {
+    background-color: #454d55;
+    text-align: center;
+    color: chartreuse;
+}
+
+@font-face {
+    font-family: "PokemonGbFont";
+    font-weight: normal;
+    src: url("../fonts/PokemonGbFont.ttf");
+}
+
+.pokemonGbFont {
+    font-family: "PokemonGbFont";
+}
+
+.dialogBox {
+    border-style: solid;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #F2F2F2;
+    position: relative;
+    display: inline-block;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--Datatables-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+    <!--Autocomplete-->
+
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/ui-darkness/jquery-ui.css">
+    <!--Custom Styles-->
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <title>PokeCollect</title>
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div class="hero">
+    <div class="collectionHeader">
+        <h1 style="display: inline">Pokecard Collection : Welcome <h1 style="display: inline" th:text="${user.username}"></h1></h1>
+    </div>
+    <table class="table table-dark table-striped">
+        <thead class="table-header">
+            <tr>
+                <th>Name</th>
+                <th>Level</th>
+                <th>HP</th>
+                <th>Types</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="pokecard : ${userCollection}">
+                <td th:text="${pokecard.name}"></td>
+                <td th:text="${pokecard.level}"></td>
+                <td th:text="${pokecard.hp}"></td>
+                <td th:text="${pokecard.types}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+    <script type="text/javascript" src="/js/main.js"></script>
+</body>
+</html>

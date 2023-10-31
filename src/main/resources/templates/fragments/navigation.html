@@ -1,6 +1,6 @@
-<div th:fragment="navigation">
+<div th:fragment="navigation" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">PokéCollect</a>
+        <a class="navbar-brand pokemonGbFont" href="#">PokéCollect</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -8,12 +8,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link pokemonGbFont" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Collection</a>
+                    <a class="nav-link pokemonGbFont" href="/collection">Collection</a>
                 </li>
-                <li class="nav-item dropdown">
+                <!--<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-disabled="true">
                         Explore
                     </a>
@@ -26,7 +26,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">In Progress</a>
-                </li>
+                </li>-->
+                <!--<li>
+                    <audio controls autoplay>
+                        <source th:src="@{/audio/IndexTheme.mp3}" type="audio/mpeg">
+                    </audio>
+                </li>-->
             </ul>
             <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/results}" th:object="${myObject}" method="get">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="userInput" value="" id="searchBox">
