@@ -23,14 +23,14 @@ public class EnterpriseApplication {
         SpringApplication.run(EnterpriseApplication.class, args);
 
         }
-
-    /*@Bean
+/**
+    @Bean
     CommandLineRunner commandLineRunner(UserRepository user, PasswordEncoder encoder) {
         return args -> {
             user.save(new User("admin", encoder.encode("password"), "ROLE_USER,ROLE_ADMIN"));
             user.save(new User("user", encoder.encode("password"), "ROLE_USER"));
             user.save(new User("staff", encoder.encode("password"), "ROLE_USER,ROLE_STAFF"));
         };
-    }*/
-
+    }
+**/
 }
