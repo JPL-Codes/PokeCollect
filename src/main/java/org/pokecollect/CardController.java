@@ -5,6 +5,7 @@ import org.pokecollect.dto.Pokecard;
 import org.pokecollect.dto.SecurityUser;
 import org.pokecollect.dto.User;
 import org.pokecollect.service.IPokecardService;
+import org.pokecollect.service.JpaUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -165,6 +166,24 @@ public class CardController {
             //TODO add logging
         }
         return card;
+    }
+
+    @GetMapping("/viewSignUp")
+    public String viewAddForm(Model theModel){
+
+        //Model attribute for the data binding
+        Pokecard card = new Pokecard();
+        theModel.addAttribute("pokecard", card);
+        return "/";
+    }
+
+    @PostMapping("/registration")
+    public String saveUser(@ModelAttribute("user") User theUser){
+        //Register the User
+        userRepository.save(theUser);
+
+        //Block duplicate submission for accidental refresh
+        return "redirect:/";
     }
 
     //asdf
