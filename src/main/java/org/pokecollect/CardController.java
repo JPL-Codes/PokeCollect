@@ -172,9 +172,9 @@ public class CardController {
     public String viewAddForm(Model theModel){
 
         //Model attribute for the data binding
-        Pokecard card = new Pokecard();
-        theModel.addAttribute("pokecard", card);
-        return "/";
+        User user = new User();
+        theModel.addAttribute("user", user);
+        return "/registration";
     }
 
     @PostMapping("/registration")
