@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -37,6 +38,9 @@ public class CardController {
     IPokecardService pokecardService;
 
     private final UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public CardController(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -180,6 +184,8 @@ public class CardController {
     @PostMapping("/registration")
     public String saveUser(@ModelAttribute("user") User theUser){
         //Register the User
+        theUser.setRoles("ROLE_USER");
+        theUser.setPassword(passwordEncoder.encode(theUser.getPassword()));
         userRepository.save(theUser);
 
         //Block duplicate submission for accidental refresh
