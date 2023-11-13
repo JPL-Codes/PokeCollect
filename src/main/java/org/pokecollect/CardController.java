@@ -1,5 +1,6 @@
 package org.pokecollect;
 
+import jakarta.validation.Valid;
 import org.pokecollect.dao.UserRepository;
 import org.pokecollect.dto.Pokecard;
 import org.pokecollect.dto.SecurityUser;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -182,11 +184,14 @@ public class CardController {
     }
 
     @PostMapping("/registration")
-    public String saveUser(@ModelAttribute("user") User theUser){
+    public String saveUser(@ModelAttribute("user") @Valid User theUser, BindingResult bindingResult){
         //Register the User
-        theUser.setRoles("ROLE_USER");
-        theUser.setPassword(passwordEncoder.encode(theUser.getPassword()));
-        userRepository.save(theUser);
+        if (bindingResult.hasErrors()) { return "/registration"; }
+        else {
+            theUser.setRoles("ROLE_USER");
+            theUser.setPassword(passwordEncoder.encode(theUser.getPassword()));
+            userRepository.save(theUser);
+        }
 
         //Block duplicate submission for accidental refresh
         return "redirect:/";

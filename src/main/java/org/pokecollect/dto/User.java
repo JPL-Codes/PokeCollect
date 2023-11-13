@@ -2,7 +2,10 @@ package org.pokecollect.dto;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,9 +26,13 @@ public class User {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank
+    @NotNull
     @Column(name = "username")
     private String username;
 
+    @NotBlank
+    @NotNull
     @Column(name = "password")
     private String password;
 
