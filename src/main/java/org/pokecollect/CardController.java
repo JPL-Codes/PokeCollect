@@ -188,6 +188,7 @@ public class CardController {
         if (bindingResult.hasErrors()) { return "/registration"; }
         try {
             Optional<User> existingUser = userRepository.findByUsername(theUser.getUsername());
+            if (existingUser.isPresent()) { return "/usernameError"; }
         }
         catch(Exception e) {
             return "/usernameError";
