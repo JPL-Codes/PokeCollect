@@ -185,15 +185,17 @@ public class CardController {
 
     @PostMapping("/registration")
     public String saveUser(@ModelAttribute("user") @Valid User theUser, BindingResult bindingResult){
-        Optional<User> existingUser = userRepository.findByUsername(theUser.getUsername());
         if (bindingResult.hasErrors()) { return "/registration"; }
-        else if (existingUser.isPresent()) { return "/usernameError"; }
-        else {
-            theUser.setRoles("ROLE_USER");
-            theUser.setPassword(passwordEncoder.encode(theUser.getPassword()));
-            userRepository.save(theUser);
-            return "redirect:/login";
+        try {
+            Optional<User> existingUser = userRepository.findByUsername(theUser.getUsername());
         }
+        catch(Exception e) {
+            return "/usernameError";
+        }
+        theUser.setRoles("ROLE_USER");
+        theUser.setPassword(passwordEncoder.encode(theUser.getPassword()));
+        userRepository.save(theUser);
+        return "redirect:/login";
     }
 
     /*@GetMapping("/viewError")
