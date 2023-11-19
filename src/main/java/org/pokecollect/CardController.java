@@ -185,17 +185,21 @@ public class CardController {
 
     @PostMapping("/registration")
     public String saveUser(@ModelAttribute("user") @Valid User theUser, BindingResult bindingResult){
-        //Register the User
+        Optional<User> existingUser = userRepository.findByUsername(theUser.getUsername());
         if (bindingResult.hasErrors()) { return "/registration"; }
+        else if (existingUser.isPresent()) { return "/usernameError"; }
         else {
             theUser.setRoles("ROLE_USER");
             theUser.setPassword(passwordEncoder.encode(theUser.getPassword()));
             userRepository.save(theUser);
+            return "redirect:/login";
         }
-
-        //Block duplicate submission for accidental refresh
-        return "redirect:/";
     }
+
+    /*@GetMapping("/viewError")
+    public String viewError(){
+        return "/usernameError";
+    }*/
 
     //asdf
     @DeleteMapping("/pokecard/{id}/")
