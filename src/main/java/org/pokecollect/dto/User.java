@@ -26,12 +26,12 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Please add a username")
     @NotNull
     @Column(name = "username")
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "Please add a password")
     @NotNull
     @Column(name = "password")
     private String password;
