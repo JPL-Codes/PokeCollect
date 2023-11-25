@@ -1,10 +1,12 @@
 package org.pokecollect;
 
+import jakarta.validation.Valid;
 import org.pokecollect.dao.UserRepository;
 import org.pokecollect.dto.Pokecard;
 import org.pokecollect.dto.SecurityUser;
 import org.pokecollect.dto.User;
 import org.pokecollect.service.IPokecardService;
+import org.pokecollect.service.JpaUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,9 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -36,6 +40,9 @@ public class CardController {
     IPokecardService pokecardService;
 
     private final UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public CardController(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -166,6 +173,36 @@ public class CardController {
         }
         return card;
     }
+
+    @GetMapping("/viewSignUp")
+    public String viewAddForm(Model theModel){
+
+        //Model attribute for the data binding
+        User user = new User();
+        theModel.addAttribute("user", user);
+        return "/registration";
+    }
+
+    @PostMapping("/registration")
+    public String saveUser(@ModelAttribute("user") @Valid User theUser, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) { return "/registration"; }
+        try {
+            Optional<User> existingUser = userRepository.findByUsername(theUser.getUsername());
+            if (existingUser.isPresent()) { return "/usernameError"; }
+        }
+        catch(Exception e) {
+            return "/usernameError";
+        }
+        theUser.setRoles("ROLE_USER");
+        theUser.setPassword(passwordEncoder.encode(theUser.getPassword()));
+        userRepository.save(theUser);
+        return "redirect:/login";
+    }
+
+    /*@GetMapping("/viewError")
+    public String viewError(){
+        return "/usernameError";
+    }*/
 
     //asdf
     @DeleteMapping("/pokecard/{id}/")
