@@ -36,6 +36,7 @@
                 <th>Level</th>
                 <th>HP</th>
                 <th>Types</th>
+                <th>Update Info</th>
             </tr>
         </thead>
         <tbody>
@@ -44,6 +45,9 @@
                 <td th:text="${pokecard.level}"></td>
                 <td th:text="${pokecard.hp}"></td>
                 <td th:text="${pokecard.types}"></td>
+
+                <a th:href="@{/userCollection/delete(user=${user} pokecard=${pokecard})}"
+                   class="btn btn-danger btn-sm" onclick="if (!(confirm('To confirm Deletion, Please Click Delete; otherwise click cancel'))) return false">Delete</a>
             </tr>
         </tbody>
     </table>

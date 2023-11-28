@@ -22,8 +22,8 @@ public class PokecardDAOStub implements IPokecardDAO{
         return pokecard;
     }
 
-    @Override
-    public void delete(int id) { allPokecards.remove(id); }
+    //@Override
+    //public void delete(int id) { userRepository.remove(id); }
 
     @Override
     public List<Pokecard> fetchAll() {

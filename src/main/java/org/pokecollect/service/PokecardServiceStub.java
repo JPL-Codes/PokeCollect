@@ -138,10 +138,10 @@ public class PokecardServiceStub implements IPokecardService {
         return pokecardDAO.save(pokecard);
     }
 
-    @Override
-    public void delete(int id) throws Exception {
-        pokecardDAO.delete(id);
-    }
+    //@Override
+    //public void delete(int id) {
+        //pokecardDAO.delete(id);
+    //}
 
     @Override
     public List<Pokecard> fetchAll() {

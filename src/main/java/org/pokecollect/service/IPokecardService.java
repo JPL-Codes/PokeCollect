@@ -50,7 +50,7 @@ public interface IPokecardService {
 
     Pokecard save(Pokecard pokecard) throws Exception;
 
-    void delete(int id) throws Exception;
+    //public void delete(int id);
 
     List<Pokecard> fetchAll();
 

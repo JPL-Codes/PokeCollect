@@ -11,7 +11,7 @@ public interface IPokecardDAO {
 
     Pokecard save(Pokecard pokecard) throws Exception;
 
-    void delete(int id);
+    //void delete(int id);
 
     List<Pokecard> fetchAll();
 

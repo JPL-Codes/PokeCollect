@@ -168,7 +168,7 @@ public class CardController {
     }
 
     //asdf
-    @DeleteMapping("/pokecard/{id}/")
+    /*@DeleteMapping("/pokecard/{id}/")
     public ResponseEntity deletePokecard(@PathVariable("id") String id) {
         try {
             pokecardService.delete(Integer.parseInt(id));
@@ -176,5 +176,13 @@ public class CardController {
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }*/
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("userId, pokecardId" ) User user, Pokecard pokecard){
+        userRepository.deletePokecardFromCollection(user.getId(), pokecard.getPokecardId());
+        return "collection";
     }
+
+
 }
