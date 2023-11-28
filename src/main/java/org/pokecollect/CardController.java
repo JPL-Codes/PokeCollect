@@ -161,8 +161,6 @@ public class CardController {
 
     @GetMapping("/registration")
     public String registration(Model theModel){
-
-        //Model attribute for the data binding
         User user = new User();
         theModel.addAttribute("user", user);
         return "/registration";
@@ -183,20 +181,4 @@ public class CardController {
         userRepository.save(theUser);
         return "redirect:/login";
     }
-
-    /*@GetMapping("/viewError")
-    public String viewError(){
-        return "/usernameError";
-    }*/
-
-    //asdf
-   /* @DeleteMapping("/pokecard/{id}/")
-    public ResponseEntity deletePokecard(@PathVariable("id") String id) {
-        try {
-            pokecardService.delete(Integer.parseInt(id));
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }*/
 }
