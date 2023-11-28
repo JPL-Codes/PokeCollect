@@ -29,12 +29,6 @@ public class JpaUserDetailsService extends User implements UserDetailsService {
         User user = optionalUser.get();
         SecurityUser securityUser = new SecurityUser(user, user.getId());
         return securityUser;
-        /*return optionalUser
-                .map(user -> new org.springframework.security.core.userdetails.User(
-                        user.getUsername(),
-                        user.getPassword(),
-                        getAuthorities(user.getRoles())))
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));*/
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities(String roles) {
@@ -44,10 +38,4 @@ public class JpaUserDetailsService extends User implements UserDetailsService {
                 .map(role -> new SimpleGrantedAuthority(role))
                 .toList();
     }
-
-   /* private List<GrantedAuthority> getAuthorities(List<String> roles) {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role))
-                .collect(Collectors.toList());
-    }*/
 }

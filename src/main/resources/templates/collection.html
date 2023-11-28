@@ -36,6 +36,7 @@
                 <th>Level</th>
                 <th>HP</th>
                 <th>Types</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -44,6 +45,12 @@
                 <td th:text="${pokecard.level}"></td>
                 <td th:text="${pokecard.hp}"></td>
                 <td th:text="${pokecard.types}"></td>
+                <td>
+                    <form th:action="@{/collection/deletePokecard}" method="post">
+                        <input type="hidden" name="pokecardId" th:value="${pokecard.pokecardId}">
+                        <button type="submit" class="btn btn-outline-danger" onclick="if (!(confirm('To confirm Deletion, please click Delete; otherwise, click Cancel'))) return false">Delete</button>
+                    </form>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,9 +49,6 @@ public class CardController {
         this.userRepository = userRepository;
     }
 
-
-
-
     /**
      * Listens for a connection to the root (/) endpoint and returns the start page.
      *
@@ -70,7 +68,7 @@ public class CardController {
     @RequestMapping("/collection")
     public String collection(Model model, @ModelAttribute String myObject) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-       // User user = (User) authentication.getPrincipal();
+
         if (authentication != null) {
             SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
             Optional<User> optionalUser = userRepository.findByUsername(securityUser.getUsername());
@@ -83,6 +81,22 @@ public class CardController {
             }
         }
         return "collection";
+    }
+
+    @PostMapping("/collection/deletePokecard")
+    public String deletePokecard(@RequestParam int pokecardId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null) {
+            SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
+            try {
+                pokecardService.deletePokecard(securityUser, pokecardId);
+                return "redirect:/collection";
+            } catch (Exception e) {
+                //TODO add logging
+            }
+        }
+        return "redirect:/collection";
     }
 
     /**
@@ -111,42 +125,13 @@ public class CardController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping(value = "/results")
     public void addPokecardViaAjax(@RequestBody Pokecard card, Principal principal) {
-        //TODO - this method successfully receives a card object from results.html.
-        //      Need to add: interface, service, a User & Collection dto, and a database for persistence
-        //      to complete the CRUD operation
-        System.out.println(card);
-
-        // Get username from logged in user (principal)
         String username = principal.getName();
-
         try {
-            //pokecardService.save(card);
             pokecardService.addPokecardToCollection(username, card);
         } catch (Exception e){
             //TODO add logging
         }
-
     }
-
-
-
-    /*@GetMapping("/searchBoxNameAutocomplete")
-    @ResponseBody
-    public List<String> searchBoxNameAutocomplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
-        // create Object Mapper
-        ObjectMapper mapper = new ObjectMapper();
-
-        // read JSON file and map/convert to java POJO
-        try {
-            Pokemon suspects = mapper.readValue(new File("src/main/resources/static/json/pokemonNameList.json"), Pokemon.class);
-            System.out.println(suspects);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        List<String> suspectsList = new ArrayList<>();
-
-        return suspectsList;
-    }*/
 
 
     @GetMapping("/pokecard")
@@ -174,10 +159,8 @@ public class CardController {
         return card;
     }
 
-    @GetMapping("/viewSignUp")
-    public String viewAddForm(Model theModel){
-
-        //Model attribute for the data binding
+    @GetMapping("/registration")
+    public String registration(Model theModel){
         User user = new User();
         theModel.addAttribute("user", user);
         return "/registration";
@@ -197,21 +180,5 @@ public class CardController {
         theUser.setPassword(passwordEncoder.encode(theUser.getPassword()));
         userRepository.save(theUser);
         return "redirect:/login";
-    }
-
-    /*@GetMapping("/viewError")
-    public String viewError(){
-        return "/usernameError";
-    }*/
-
-    //asdf
-    @DeleteMapping("/pokecard/{id}/")
-    public ResponseEntity deletePokecard(@PathVariable("id") String id) {
-        try {
-            pokecardService.delete(Integer.parseInt(id));
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 }

@@ -50,11 +50,12 @@ public interface IPokecardService {
 
     Pokecard save(Pokecard pokecard) throws Exception;
 
-    void delete(int id) throws Exception;
+    void deletePokecard(SecurityUser securityUser,int pokecardId) throws Exception;
 
     List<Pokecard> fetchAll();
 
     void addPokecardToCollection(String username, Pokecard card);
 
     List<Pokecard> getUserPokecardCollection(SecurityUser securityUser);
+
 }
