@@ -7,6 +7,8 @@ import org.pokecollect.dto.SecurityUser;
 import org.pokecollect.dto.User;
 import org.pokecollect.service.IPokecardService;
 import org.pokecollect.service.JpaUserDetailsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -39,6 +41,7 @@ public class CardController {
     @Autowired
     IPokecardService pokecardService;
 
+    Logger log = LoggerFactory.getLogger(this.getClass());
     private final UserRepository userRepository;
 
     @Autowired
@@ -207,10 +210,13 @@ public class CardController {
     //asdf
     @DeleteMapping("/pokecard/{id}/")
     public ResponseEntity deletePokecard(@PathVariable("id") String id) {
+        log.debug("Entering delete card endpoint.");
         try {
             pokecardService.delete(Integer.parseInt(id));
+            log.info("Card with ID "+ id + " was deleted.");
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
+            log.error("Unable to delete card with ID: "+ id + ", message: "+ e.getMessage(), e);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
