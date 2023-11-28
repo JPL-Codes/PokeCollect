@@ -26,7 +26,7 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Put a cool message here")
     @NotNull
     @Column(name = "username")
     private String username;

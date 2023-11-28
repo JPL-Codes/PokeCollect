@@ -139,8 +139,16 @@ public class PokecardServiceStub implements IPokecardService {
     }
 
     @Override
-    public void delete(int id) throws Exception {
-        pokecardDAO.delete(id);
+    public void deletePokecard(SecurityUser securityUser,int pokecardId) {
+
+        Optional<User> optionalUser = userRepository.findByUsername(securityUser.getUsername());
+
+        if (optionalUser.isPresent()) {
+            // user found.
+            User user = optionalUser.get();
+            user.getPokecardCollection().removeIf(Pokecard -> Pokecard.getPokecardId() == pokecardId);
+            userRepository.save(user);
+        }
     }
 
     @Override

@@ -25,6 +25,12 @@
   <div class="text-center mt-4 name">
     PokeCollect
   </div>
+  <div th:if="${param.error}">
+    Invalid username and password.
+  </div>
+  <div th:if="${param.logout}">
+    You have been logged out.
+  </div>
   <form class="p-3 mt-3" th:action="@{/login}" method="post">
     <div class="form-field d-flex align-items-center">
       <span class="far fa-user"></span>
@@ -38,7 +44,7 @@
     <br>
     <br>
     <i small>Need to make an account?</i>
-    <a th:href="@{/viewSignUp}" class="btn btn_dark btn-sm mb-2">Sign-up</a>
+    <a th:href="@{/registration}" class="btn btn_dark btn-sm mb-2">Sign-up</a>
   </form>
 </div>
 
